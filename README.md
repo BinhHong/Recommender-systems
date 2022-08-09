@@ -28,3 +28,9 @@ Normally, the columns of features are listed after the columns of users.
  
 This is extent to other situation when rating is binary, in this case the function used is sig-moid instead of linear,
 and therefore we use the similar cost function as in logistic regression.
+
+# 2. Mean normalization
+Basically, we rely on $Y(i,j)$ to derive $w,b,x$ for the model. If there is a new user, his $w,b$ will be $0,0$, i.e he rates all movies with $0$, which is not reasonable. There is a way to make it reasonable, in the sense that new user will rate a movie as mean of all other users. This is done by tranformating $Y$. 
+- for each row of $Y$, compute the mean of ratings that appear.
+- subtract this number from each row to get new $Y$.
+- with new $Y$, we get new $w,b,x$ for each user. To get ratings for a new movie, we use $w * x + b + mean$ where mean is the mean rating of this movie, defined as aboved.
