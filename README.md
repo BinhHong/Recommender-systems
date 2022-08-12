@@ -1,7 +1,8 @@
 # Recommender-systems
 
 # 1. Collaborative filtering algorithm:
-Situation:
+
+## a. Situation:
 - there are $n_m$ movies, $n_u$ users, each movie has $n$ features and movie at index $i$ has features $x_i$ (so $x_i$ has $n$ components). 
 Normally, the columns of features are listed after the columns of users.
 - other notations:
@@ -29,8 +30,16 @@ Normally, the columns of features are listed after the columns of users.
 This is extent to other situation when rating is binary, in this case the function used is sig-moid instead of linear,
 and therefore we use the similar cost function as in logistic regression.
 
-# 2. Mean normalization
+## b. Mean normalization
 Basically, we rely on $Y(i,j)$ to derive $w,b,x$ for the model. If there is a new user, his $w,b$ will be $0,0$, i.e he rates all movies with $0$, which is not reasonable. There is a way to make it reasonable, in the sense that new user will rate a movie as mean of all other users. This is done by tranformating $Y$. 
 - for each row of $Y$, compute the mean of ratings that appear.
 - subtract this number from each row to get new $Y$.
 - with new $Y$, we get new $w,b,x$ for each user. To get ratings for a new movie, we use $w * x + b + mean$ where mean is the mean rating of this movie, defined as aboved.
+
+# 2. Content-based recommendation
+
+In this case, users and movies have features: age, genre, country, average rating.... There are a lot and the numbers of features in users and movies are not the same. - Idea: choose only a part from user, another part of same length from movies --> take dot product to give predictions.
+- method: use neural networks
+- note: for a large catalog, how to give recommendation?
+  - first, choose candidates based on features like: 20 best movies from the country, 10 best from top 3 genres...
+  - from this list, make a ranking by aboved neural network.
